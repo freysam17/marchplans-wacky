@@ -515,6 +515,53 @@
             color: var(--text-primary);
         }
 
+        /* Savings Badge */
+        .savings-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 100px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-primary);
+            margin-left: 8px;
+        }
+
+        .package-note {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: var(--text-tertiary);
+            font-size: 12px;
+            margin-right: 8px;
+        }
+
+        /* Featured Package */
+        .stream-card.featured {
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .stream-card.featured::after {
+            content: 'FLAGSHIP';
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            padding: 4px 10px;
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            border-radius: 100px;
+        }
+
         /* Timeline */
         .timeline {
             position: relative;
@@ -900,6 +947,38 @@
             transition: width 0.1s ease;
         }
 
+        /* Deliverable List */
+        .deliverable-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .deliverable-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .deliverable-item::before {
+            content: '✓';
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            font-size: 10px;
+            color: var(--text-primary);
+        }
+
         /* Responsive */
         @media (max-width: 1200px) {
             .grid-4 {
@@ -1134,7 +1213,7 @@
                         <span class="glass-card-badge">March 31</span>
                     </div>
                     <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.8;">
-                        We are the creative studio that produces cinematic brand content. Our short film is proof of capability that attracts ₦1M+ commercial production contracts from brands and agencies.
+                        We are the creative studio that produces cinematic brand content. Our short film is proof of capability that attracts ₦2M+ commercial production contracts from brands and agencies.
                     </p>
                 </div>
             </div>
@@ -1190,7 +1269,7 @@
             </div>
 
             <div class="grid-2 fade-in">
-                <!-- Stream 1 -->
+                <!-- Stream 1: Video Editing -->
                 <div class="stream-card">
                     <div class="stream-icon">✂️</div>
                     <h3 class="stream-title">Talking Head Video Editing</h3>
@@ -1207,7 +1286,7 @@
                     </div>
                 </div>
 
-                <!-- Stream 2 -->
+                <!-- Stream 2: Podcast -->
                 <div class="stream-card">
                     <div class="stream-icon">🎙️</div>
                     <h3 class="stream-title">Podcast Editing</h3>
@@ -1220,46 +1299,57 @@
                     </div>
                 </div>
 
-                <!-- Stream 3 -->
+                <!-- Stream 3: Talking Head Production -->
                 <div class="stream-card">
                     <div class="stream-icon">🎬</div>
                     <h3 class="stream-title">Talking Head Production</h3>
                     <p class="stream-target">Coaches, consultants, course creators</p>
                     <div class="stream-packages">
-                        <div class="stream-package">
-                            <span class="stream-package-name">Half-Day Shoot</span>
-                            <span class="stream-package-price">₦150K–₦250K</span>
+                        <div class="stream-package" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+                            <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                                <span class="stream-package-name">Shoot Only (3–5 videos)</span>
+                                <span class="stream-package-price">₦50,000<span style="font-size: 11px; font-weight: 400; color: var(--text-tertiary);">/video</span></span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span class="original-price">₦95,000</span>
+                                <span class="savings-badge">Save 47%</span>
+                            </div>
+                            <p class="package-note">Two-camera setup • Our best seller</p>
                         </div>
-                        <div class="stream-package">
-                            <span class="stream-package-name">Full-Day Shoot</span>
-                            <span class="stream-package-price">₦300K–₦450K</span>
+                        <div class="stream-package" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+                            <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                                <span class="stream-package-name">Shoot + Advanced Edit</span>
+                                <span class="stream-package-price">₦100,000<span style="font-size: 11px; font-weight: 400; color: var(--text-tertiary);">/video</span></span>
+                            </div>
+                            <p class="package-note">₦50K shoot + ₦50K advanced edit per video</p>
                         </div>
                     </div>
+                    <p style="font-size: 11px; color: var(--text-tertiary); margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--glass-border);">
+                        * Pricing applies when client books 3–5 videos in a single production session
+                    </p>
                 </div>
 
-                <!-- Stream 4 -->
-                <div class="stream-card">
+                <!-- Stream 4: Ad Commercial Production -->
+                <div class="stream-card featured" style="position: relative;">
                     <div class="stream-icon">📽️</div>
                     <h3 class="stream-title">Ad Commercial Production</h3>
                     <p class="stream-target">Brands, startups, agencies</p>
                     <div class="stream-packages">
-                        <div class="stream-package">
-                            <span class="stream-package-name">Concept + Script</span>
-                            <span class="stream-package-price">₦100K–₦200K</span>
-                        </div>
-                        <div class="stream-package">
-                            <span class="stream-package-name">Full Production (15–30s)</span>
-                            <span class="stream-package-price">₦400K–₦800K</span>
-                        </div>
-                        <div class="stream-package">
-                            <span class="stream-package-name">Full Production (60–90s)</span>
-                            <span class="stream-package-price">₦800K–₦1.5M</span>
-                        </div>
-                        <div class="stream-package">
-                            <span class="stream-package-name">Campaign Package</span>
-                            <span class="stream-package-price">₦1.5M–₦2.5M</span>
+                        <div class="stream-package" style="flex-direction: column; align-items: flex-start; gap: 12px; padding: 20px; background: rgba(255,255,255,0.04);">
+                            <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                                <span class="stream-package-name" style="font-weight: 500; color: var(--text-primary);">Campaign Package</span>
+                                <span class="stream-package-price" style="font-size: 18px;">Starting at ₦2M</span>
+                            </div>
+                            <div class="deliverable-list" style="width: 100%; margin-top: 8px;">
+                                <div class="deliverable-item">Hero Film (Vertical &amp; Horizontal)</div>
+                                <div class="deliverable-item">15–30s Teaser</div>
+                                <div class="deliverable-item">2 BTS Reels</div>
+                            </div>
                         </div>
                     </div>
+                    <p style="font-size: 12px; color: var(--text-secondary); margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--glass-border); line-height: 1.6;">
+                        Full cinematic production including concept development, scripting, professional crew, talent, locations, and complete post-production.
+                    </p>
                 </div>
             </div>
         </section>
@@ -1298,21 +1388,21 @@
                             </tr>
                             <tr>
                                 <td class="table-highlight">Talking Head Production</td>
-                                <td>2–3 clients</td>
+                                <td>2–3 clients (3–5 videos each)</td>
                                 <td>₦300,000</td>
-                                <td>₦700,000</td>
+                                <td>₦900,000</td>
                             </tr>
                             <tr>
                                 <td class="table-highlight">Commercial Production</td>
                                 <td>1 client</td>
-                                <td>₦400,000</td>
-                                <td>₦800,000</td>
+                                <td>₦2,000,000</td>
+                                <td>₦2,000,000</td>
                             </tr>
                             <tr style="background: rgba(255,255,255,0.03);">
                                 <td class="table-highlight" style="font-weight: 600;">TOTAL</td>
-                                <td style="font-weight: 600;">18–27 clients</td>
-                                <td style="font-weight: 600;">₦1,700,000</td>
-                                <td style="font-weight: 600;">₦4,000,000</td>
+                                <td style="font-weight: 600;">18–34 clients</td>
+                                <td style="font-weight: 600;">₦3,300,000</td>
+                                <td style="font-weight: 600;">₦5,400,000</td>
                             </tr>
                         </tbody>
                     </table>
@@ -1321,7 +1411,7 @@
 
             <div class="roi-card fade-in">
                 <div class="roi-label">Return on Investment</div>
-                <div class="roi-value">183%–567%</div>
+                <div class="roi-value">450%–800%</div>
                 <div class="roi-range">Based on ₦600,000 total investment</div>
             </div>
 
@@ -1331,11 +1421,11 @@
                     <div class="metric-label">Investment</div>
                 </div>
                 <div class="metric-card">
-                    <div class="metric-value">₦1.1M+</div>
+                    <div class="metric-value">₦2.7M+</div>
                     <div class="metric-label">Min Net Profit</div>
                 </div>
                 <div class="metric-card">
-                    <div class="metric-value">₦3.4M</div>
+                    <div class="metric-value">₦4.8M</div>
                     <div class="metric-label">Max Net Profit</div>
                 </div>
             </div>
@@ -1383,7 +1473,7 @@
                             <span style="width: 24px; height: 24px; background: rgba(255,255,255,0.1); border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 12px;">2</span>
                             <div>
                                 <div style="font-size: 14px; font-weight: 500; margin-bottom: 2px;">Brand Partnership Pipeline</div>
-                                <div style="font-size: 13px; color: var(--text-secondary);">Episodes 4+ attract paid placements (₦300K–₦1M)</div>
+                                <div style="font-size: 13px; color: var(--text-secondary);">Episodes 4+ attract paid placements (₦500K–₦1.5M)</div>
                             </div>
                         </div>
                         <div style="display: flex; gap: 12px;">
@@ -1412,12 +1502,12 @@
                             <span>16:9 + 9:16</span>
                         </div>
                         <div style="display: flex; justify-content: space-between; font-size: 13px;">
-                            <span style="color: var(--text-secondary);">Cutdowns</span>
-                            <span>60s, 30s, 15s</span>
+                            <span style="color: var(--text-secondary);">Teaser</span>
+                            <span>15–30s</span>
                         </div>
                         <div style="display: flex; justify-content: space-between; font-size: 13px;">
                             <span style="color: var(--text-secondary);">BTS Reels</span>
-                            <span>2–3 pieces</span>
+                            <span>2 pieces</span>
                         </div>
                         <div style="display: flex; justify-content: space-between; font-size: 13px;">
                             <span style="color: var(--text-secondary);">BTS Photos</span>
@@ -1437,10 +1527,14 @@
             <div class="section-header fade-in">
                 <div class="section-number">05</div>
                 <h2 class="section-title">Production Deliverables</h2>
-                <p class="section-description">Complete list of assets produced from the short film shoot.</p>
+                <p class="section-description">Complete list of assets produced from the short film shoot — matching our Campaign Package offering.</p>
             </div>
 
             <div class="glass-card fade-in">
+                <div class="glass-card-header">
+                    <h3 class="glass-card-title">Campaign Package Deliverables</h3>
+                    <span class="glass-card-badge">What Clients Get</span>
+                </div>
                 <div class="table-wrapper">
                     <table>
                         <thead>
@@ -1454,7 +1548,7 @@
                         <tbody>
                             <tr>
                                 <td>1</td>
-                                <td class="table-highlight">Hero Film — 90s version</td>
+                                <td class="table-highlight">Hero Film — Horizontal</td>
                                 <td>16:9, 4K</td>
                                 <td>YouTube, website, pitch</td>
                             </tr>
@@ -1466,45 +1560,60 @@
                             </tr>
                             <tr>
                                 <td>3</td>
-                                <td class="table-highlight">60-second cutdown</td>
-                                <td>16:9 & 9:16</td>
-                                <td>Paid ads, social</td>
+                                <td class="table-highlight">Teaser</td>
+                                <td>15–30s, 16:9 & 9:16</td>
+                                <td>Paid ads, stories, social</td>
                             </tr>
                             <tr>
                                 <td>4</td>
-                                <td class="table-highlight">30-second cutdown</td>
-                                <td>16:9 & 9:16</td>
-                                <td>Paid ads, Twitter</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td class="table-highlight">15-second teaser</td>
-                                <td>9:16</td>
-                                <td>Stories, reels, ads</td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td class="table-highlight">BTS Photo Set</td>
-                                <td>High-res JPG</td>
-                                <td>Social, case study</td>
-                            </tr>
-                            <tr>
-                                <td>7</td>
                                 <td class="table-highlight">BTS Reel #1</td>
                                 <td>9:16, 30s</td>
                                 <td>Instagram, TikTok</td>
                             </tr>
                             <tr>
-                                <td>8</td>
+                                <td>5</td>
                                 <td class="table-highlight">BTS Reel #2</td>
                                 <td>9:16, 30s</td>
-                                <td>Educational content</td>
+                                <td>Educational / Behind-the-scenes</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="glass-card fade-in" style="margin-top: 24px;">
+                <div class="glass-card-header">
+                    <h3 class="glass-card-title">Additional Internal Deliverables</h3>
+                    <span class="glass-card-badge">For Our Marketing</span>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Deliverable</th>
+                                <th>Format</th>
+                                <th>Use Case</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td class="table-highlight">BTS Photo Set</td>
+                                <td>5–10 High-res JPG</td>
+                                <td>Social posts, case study</td>
                             </tr>
                             <tr>
-                                <td>9</td>
+                                <td>2</td>
                                 <td class="table-highlight">Written Case Study</td>
-                                <td>PDF/Blog</td>
-                                <td>LinkedIn, website</td>
+                                <td>PDF / Blog Post</td>
+                                <td>LinkedIn, website, pitches</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td class="table-highlight">Social Cutdowns</td>
+                                <td>Various lengths</td>
+                                <td>Ongoing content repurposing</td>
                             </tr>
                         </tbody>
                     </table>
@@ -1800,12 +1909,8 @@
                                     <td style="text-align: right;">₦80,000</td>
                                 </tr>
                                 <tr>
-                                    <td class="table-highlight">Lead Talent (Male)</td>
-                                    <td style="text-align: right;">₦50,000</td>
-                                </tr>
-                                <tr>
-                                    <td class="table-highlight">Lead Talent (Female)</td>
-                                    <td style="text-align: right;">₦50,000</td>
+                                    <td class="table-highlight">Lead Talent (2 actors)</td>
+                                    <td style="text-align: right;">₦100,000</td>
                                 </tr>
                                 <tr>
                                     <td class="table-highlight">Shortlet Apartment</td>
@@ -2029,7 +2134,7 @@
                         <div style="font-size: 12px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Minimum</div>
                         <div style="font-size: 14px; color: var(--text-secondary); line-height: 1.7;">
                             Film launched<br>
-                            ₦1.5M revenue<br>
+                            ₦3M revenue<br>
                             50K+ views<br>
                             10+ leads for April
                         </div>
@@ -2038,8 +2143,8 @@
                         <div style="font-size: 12px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Target</div>
                         <div style="font-size: 14px; color: var(--text-secondary); line-height: 1.7;">
                             100K+ views<br>
-                            ₦2.5M+ revenue<br>
-                            1 commercial deal<br>
+                            ₦4M+ revenue<br>
+                            1 commercial deal closed<br>
                             20+ leads for April
                         </div>
                     </div>
@@ -2047,7 +2152,7 @@
                         <div style="font-size: 12px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Exceptional</div>
                         <div style="font-size: 14px; color: var(--text-secondary); line-height: 1.7;">
                             200K+ views<br>
-                            ₦3.5M+ revenue<br>
+                            ₦5M+ revenue<br>
                             Brand engagement<br>
                             Episode 2 sponsor interest
                         </div>
@@ -2230,11 +2335,11 @@
                         </div>
                         <div>
                             <div style="font-size: 14px; color: var(--text-tertiary); margin-bottom: 8px;">Expected Return</div>
-                            <div style="font-size: 36px; font-weight: 600; letter-spacing: -1px;">₦1.7M–₦4M</div>
+                            <div style="font-size: 36px; font-weight: 600; letter-spacing: -1px;">₦3.3M–₦5.4M</div>
                         </div>
                         <div>
                             <div style="font-size: 14px; color: var(--text-tertiary); margin-bottom: 8px;">ROI Range</div>
-                            <div style="font-size: 36px; font-weight: 600; letter-spacing: -1px;">183%–567%</div>
+                            <div style="font-size: 36px; font-weight: 600; letter-spacing: -1px;">450%–800%</div>
                         </div>
                     </div>
                 </div>
