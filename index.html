@@ -1,0 +1,2354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wacky Pixels — March 2025 Strategic Plan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-highlight: rgba(255, 255, 255, 0.12);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-tertiary: rgba(255, 255, 255, 0.5);
+            --accent: rgba(255, 255, 255, 0.9);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Background */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .ambient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(200,200,200,0.2) 0%, transparent 70%);
+            bottom: 20%;
+            left: -100px;
+            animation-delay: -7s;
+        }
+
+        .orb-3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+            top: 50%;
+            right: 10%;
+            animation-delay: -14s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, -30px) scale(1.05); }
+            50% { transform: translate(-20px, 20px) scale(0.95); }
+            75% { transform: translate(20px, 30px) scale(1.02); }
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--glass-bg);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border-right: 1px solid var(--glass-border);
+            z-index: 1000;
+            padding: 40px 0;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .nav::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .nav::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .nav::-webkit-scrollbar-thumb {
+            background: var(--glass-border);
+            border-radius: 2px;
+        }
+
+        .nav-header {
+            padding: 0 30px 30px;
+            border-bottom: 1px solid var(--glass-border);
+            margin-bottom: 20px;
+        }
+
+        .nav-logo {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+        }
+
+        .nav-subtitle {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-section {
+            padding: 0 20px;
+            margin-bottom: 20px;
+        }
+
+        .nav-section-title {
+            font-size: 10px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 0 10px;
+            margin-bottom: 8px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 10px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 400;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+            background: var(--glass-highlight);
+        }
+
+        .nav-link.active {
+            color: var(--text-primary);
+            background: var(--glass-highlight);
+        }
+
+        .nav-link.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 16px;
+            background: var(--text-primary);
+            border-radius: 0 2px 2px 0;
+        }
+
+        /* Mobile Nav Toggle */
+        .nav-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 44px;
+            height: 44px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            z-index: 1001;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav-toggle span {
+            width: 18px;
+            height: 2px;
+            background: var(--text-primary);
+            border-radius: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .nav-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Main Content */
+        .main {
+            margin-left: 280px;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section {
+            padding: 80px 60px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px 60px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .hero-title {
+            font-size: clamp(40px, 6vw, 72px);
+            font-weight: 700;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(18px, 2.5vw, 24px);
+            color: var(--text-secondary);
+            font-weight: 300;
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            padding: 24px 32px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+        }
+
+        .hero-stat-value {
+            font-size: 32px;
+            font-weight: 600;
+            letter-spacing: -1px;
+            margin-bottom: 4px;
+        }
+
+        .hero-stat-label {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Section Headers */
+        .section-header {
+            margin-bottom: 50px;
+        }
+
+        .section-number {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 600;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+
+        .section-description {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            line-height: 1.7;
+        }
+
+        /* Glass Cards */
+        .glass-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 32px;
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--glass-highlight), transparent);
+        }
+
+        .glass-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .glass-card-title {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .glass-card-badge {
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        /* Tables */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 24px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        th {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-tertiary);
+            font-weight: 500;
+        }
+
+        td {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: var(--glass-bg);
+        }
+
+        .table-highlight {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Revenue Stream Cards */
+        .stream-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 28px;
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            transition: all 0.3s ease;
+        }
+
+        .stream-card:hover {
+            border-color: var(--glass-highlight);
+            transform: translateY(-4px);
+        }
+
+        .stream-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--glass-highlight);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .stream-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .stream-target {
+            font-size: 13px;
+            color: var(--text-tertiary);
+            margin-bottom: 20px;
+        }
+
+        .stream-packages {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .stream-package {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .stream-package-name {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .stream-package-price {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: var(--glass-border);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 40px;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -36px;
+            top: 4px;
+            width: 16px;
+            height: 16px;
+            background: var(--bg-primary);
+            border: 2px solid var(--glass-highlight);
+            border-radius: 50%;
+        }
+
+        .timeline-item.active .timeline-dot {
+            background: var(--text-primary);
+            border-color: var(--text-primary);
+        }
+
+        .timeline-week {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+        }
+
+        .timeline-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .timeline-tasks {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .timeline-task {
+            font-size: 14px;
+            color: var(--text-secondary);
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .timeline-task::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--text-tertiary);
+        }
+
+        /* Budget Breakdown */
+        .budget-visual {
+            display: flex;
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 30px 0;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .budget-bar {
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .budget-bar.production {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .budget-bar.marketing {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .budget-legend {
+            display: flex;
+            gap: 30px;
+            margin-top: 16px;
+        }
+
+        .budget-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .budget-legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+
+        .budget-legend-dot.production {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .budget-legend-dot.marketing {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Metrics Grid */
+        .metric-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+        }
+
+        .metric-value {
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ROI Highlight */
+        .roi-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%);
+            border: 1px solid var(--glass-highlight);
+            border-radius: 24px;
+            padding: 48px;
+            text-align: center;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .roi-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 50%);
+            animation: roiGlow 10s ease-in-out infinite;
+        }
+
+        @keyframes roiGlow {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(10%, 10%); }
+        }
+
+        .roi-label {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .roi-value {
+            font-size: 64px;
+            font-weight: 700;
+            letter-spacing: -3px;
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .roi-range {
+            font-size: 16px;
+            color: var(--text-secondary);
+            position: relative;
+        }
+
+        /* Volunteer Section */
+        .volunteer-benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 30px 0;
+        }
+
+        .volunteer-benefit {
+            padding: 20px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .volunteer-benefit-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--glass-highlight);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* Risk Cards */
+        .risk-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 16px;
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+        }
+
+        .risk-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            cursor: pointer;
+        }
+
+        .risk-title {
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .risk-badges {
+            display: flex;
+            gap: 8px;
+        }
+
+        .risk-badge {
+            padding: 4px 10px;
+            border-radius: 100px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .risk-badge.probability {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+        }
+
+        .risk-badge.impact {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-tertiary);
+        }
+
+        .risk-mitigation {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            padding-top: 16px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 100px 60px;
+        }
+
+        .cta-title {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 600;
+            letter-spacing: -1.5px;
+            margin-bottom: 20px;
+        }
+
+        .cta-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .cta-button.primary {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        .cta-button.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.2);
+        }
+
+        .cta-button.secondary {
+            background: var(--glass-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--glass-border);
+        }
+
+        .cta-button.secondary:hover {
+            background: var(--glass-highlight);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 40px 60px;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-text {
+            font-size: 13px;
+            color: var(--text-tertiary);
+        }
+
+        .footer-signature {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Scroll Progress */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 280px;
+            right: 0;
+            height: 2px;
+            background: var(--glass-border);
+            z-index: 999;
+        }
+
+        .scroll-progress-bar {
+            height: 100%;
+            background: var(--text-primary);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 968px) {
+            .nav {
+                transform: translateX(-100%);
+            }
+
+            .nav.open {
+                transform: translateX(0);
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .scroll-progress {
+                left: 0;
+            }
+
+            .section, .hero, .cta-section {
+                padding: 60px 24px;
+            }
+
+            .footer {
+                padding: 30px 24px;
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-stats {
+                gap: 16px;
+            }
+
+            .hero-stat {
+                padding: 20px 24px;
+                flex: 1;
+                min-width: 140px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 32px;
+                letter-spacing: -1px;
+            }
+
+            .roi-value {
+                font-size: 48px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Accordion */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .accordion-content.open {
+            max-height: 500px;
+        }
+
+        .accordion-toggle {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--glass-bg);
+            border-radius: 6px;
+            font-size: 14px;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-toggle.open {
+            transform: rotate(45deg);
+        }
+    </style>
+</head>
+<body>
+    <!-- Ambient Background -->
+    <div class="ambient-bg">
+        <div class="ambient-orb orb-1"></div>
+        <div class="ambient-orb orb-2"></div>
+        <div class="ambient-orb orb-3"></div>
+    </div>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress">
+        <div class="scroll-progress-bar" id="scrollProgress"></div>
+    </div>
+
+    <!-- Mobile Nav Toggle -->
+    <button class="nav-toggle" id="navToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-header">
+            <div class="nav-logo">Wacky Pixels</div>
+            <div class="nav-subtitle">March 2025 Plan</div>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Overview</div>
+            <a href="#hero" class="nav-link active">Executive Summary</a>
+            <a href="#vision" class="nav-link">Strategic Vision</a>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Revenue</div>
+            <a href="#streams" class="nav-link">Service Streams</a>
+            <a href="#projections" class="nav-link">Projections</a>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Production</div>
+            <a href="#seamless" class="nav-link">SEAMLESS Series</a>
+            <a href="#deliverables" class="nav-link">Deliverables</a>
+            <a href="#volunteers" class="nav-link">Volunteer Strategy</a>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Marketing</div>
+            <a href="#marketing" class="nav-link">Distribution Plan</a>
+            <a href="#budget" class="nav-link">Budget Breakdown</a>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Execution</div>
+            <a href="#calendar" class="nav-link">Weekly Calendar</a>
+            <a href="#metrics" class="nav-link">Success Metrics</a>
+            <a href="#risks" class="nav-link">Risk Mitigation</a>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Action</div>
+            <a href="#next-steps" class="nav-link">Next Steps</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <div class="fade-in">
+                <span class="hero-badge">Confidential — March 2025</span>
+                <h1 class="hero-title">Strategic Growth Plan</h1>
+                <p class="hero-subtitle">A comprehensive revenue strategy to generate ₦1.5M–₦4M through four core service offerings, anchored by a flagship cinematic short film.</p>
+                
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">₦600K</div>
+                        <div class="hero-stat-label">Total Investment</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">₦400K</div>
+                        <div class="hero-stat-label">Production</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">₦200K</div>
+                        <div class="hero-stat-label">Media Buying</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">567%</div>
+                        <div class="hero-stat-label">Max ROI</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Strategic Vision -->
+        <section class="section" id="vision">
+            <div class="section-header fade-in">
+                <div class="section-number">01</div>
+                <h2 class="section-title">Strategic Vision</h2>
+                <p class="section-description">Transforming from an editing service to a premium creative studio through demonstrable capability.</p>
+            </div>
+
+            <div class="grid-2 fade-in">
+                <div class="glass-card">
+                    <div class="glass-card-header">
+                        <h3 class="glass-card-title">Current State</h3>
+                        <span class="glass-card-badge">Now</span>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.8;">
+                        Wacky Pixels operates as a post-production and editing service provider with active ads running for talking head and podcast editing. We are perceived as editors, not creators.
+                    </p>
+                </div>
+
+                <div class="glass-card">
+                    <div class="glass-card-header">
+                        <h3 class="glass-card-title">Target State</h3>
+                        <span class="glass-card-badge">March 31</span>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.8;">
+                        We are the creative studio that produces cinematic brand content. Our short film is proof of capability that attracts ₦1M+ commercial production contracts from brands and agencies.
+                    </p>
+                </div>
+            </div>
+
+            <div class="glass-card fade-in" style="margin-top: 24px;">
+                <div class="glass-card-header">
+                    <h3 class="glass-card-title">The Strategic Shift</h3>
+                </div>
+                <div style="display: flex; align-items: center; gap: 40px; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 200px;">
+                        <div style="font-size: 14px; color: var(--text-tertiary); margin-bottom: 8px;">FROM</div>
+                        <div style="font-size: 20px; font-weight: 500;">"We edit your videos"</div>
+                    </div>
+                    <div style="font-size: 32px; color: var(--text-tertiary);">→</div>
+                    <div style="flex: 1; min-width: 200px;">
+                        <div style="font-size: 14px; color: var(--text-tertiary); margin-bottom: 8px;">TO</div>
+                        <div style="font-size: 20px; font-weight: 500;">"We tell stories that move"</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card fade-in" style="margin-top: 24px;">
+                <div class="glass-card-header">
+                    <h3 class="glass-card-title">Why This Works on a Lean Budget</h3>
+                </div>
+                <div class="grid-2" style="gap: 16px;">
+                    <div style="padding: 16px; background: rgba(255,255,255,0.02); border-radius: 12px;">
+                        <div style="font-size: 14px; font-weight: 500; margin-bottom: 4px;">Owned Equipment</div>
+                        <div style="font-size: 13px; color: var(--text-secondary);">Zero rental costs</div>
+                    </div>
+                    <div style="padding: 16px; background: rgba(255,255,255,0.02); border-radius: 12px;">
+                        <div style="font-size: 14px; font-weight: 500; margin-bottom: 4px;">In-House Post</div>
+                        <div style="font-size: 13px; color: var(--text-secondary);">No external editor fees</div>
+                    </div>
+                    <div style="padding: 16px; background: rgba(255,255,255,0.02); border-radius: 12px;">
+                        <div style="font-size: 14px; font-weight: 500; margin-bottom: 4px;">Volunteer Crew</div>
+                        <div style="font-size: 13px; color: var(--text-secondary);">Experience-for-labor exchange</div>
+                    </div>
+                    <div style="padding: 16px; background: rgba(255,255,255,0.02); border-radius: 12px;">
+                        <div style="font-size: 14px; font-weight: 500; margin-bottom: 4px;">Strategic Hires Only</div>
+                        <div style="font-size: 13px; color: var(--text-secondary);">Pay only for what we can't do</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Revenue Streams -->
+        <section class="section" id="streams">
+            <div class="section-header fade-in">
+                <div class="section-number">02</div>
+                <h2 class="section-title">Revenue Streams</h2>
+                <p class="section-description">Four service offerings with clear pricing structures designed for different market segments.</p>
+            </div>
+
+            <div class="grid-2 fade-in">
+                <!-- Stream 1 -->
+                <div class="stream-card">
+                    <div class="stream-icon">✂️</div>
+                    <h3 class="stream-title">Talking Head Video Editing</h3>
+                    <p class="stream-target">Content creators, YouTubers, small businesses</p>
+                    <div class="stream-packages">
+                        <div class="stream-package">
+                            <span class="stream-package-name">Simple Edit</span>
+                            <span class="stream-package-price">₦50,000</span>
+                        </div>
+                        <div class="stream-package">
+                            <span class="stream-package-name">Advanced Edit</span>
+                            <span class="stream-package-price">₦100,000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stream 2 -->
+                <div class="stream-card">
+                    <div class="stream-icon">🎙️</div>
+                    <h3 class="stream-title">Podcast Editing</h3>
+                    <p class="stream-target">Podcasters, thought leaders, brands</p>
+                    <div class="stream-packages">
+                        <div class="stream-package">
+                            <span class="stream-package-name">Trailer + Simple Edit</span>
+                            <span class="stream-package-price">₦100,000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stream 3 -->
+                <div class="stream-card">
+                    <div class="stream-icon">🎬</div>
+                    <h3 class="stream-title">Talking Head Production</h3>
+                    <p class="stream-target">Coaches, consultants, course creators</p>
+                    <div class="stream-packages">
+                        <div class="stream-package">
+                            <span class="stream-package-name">Half-Day Shoot</span>
+                            <span class="stream-package-price">₦150K–₦250K</span>
+                        </div>
+                        <div class="stream-package">
+                            <span class="stream-package-name">Full-Day Shoot</span>
+                            <span class="stream-package-price">₦300K–₦450K</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stream 4 -->
+                <div class="stream-card">
+                    <div class="stream-icon">📽️</div>
+                    <h3 class="stream-title">Ad Commercial Production</h3>
+                    <p class="stream-target">Brands, startups, agencies</p>
+                    <div class="stream-packages">
+                        <div class="stream-package">
+                            <span class="stream-package-name">Concept + Script</span>
+                            <span class="stream-package-price">₦100K–₦200K</span>
+                        </div>
+                        <div class="stream-package">
+                            <span class="stream-package-name">Full Production (15–30s)</span>
+                            <span class="stream-package-price">₦400K–₦800K</span>
+                        </div>
+                        <div class="stream-package">
+                            <span class="stream-package-name">Full Production (60–90s)</span>
+                            <span class="stream-package-price">₦800K–₦1.5M</span>
+                        </div>
+                        <div class="stream-package">
+                            <span class="stream-package-name">Campaign Package</span>
+                            <span class="stream-package-price">₦1.5M–₦2.5M</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Revenue Projections -->
+        <section class="section" id="projections">
+            <div class="section-header fade-in">
+                <div class="section-number">03</div>
+                <h2 class="section-title">March Projections</h2>
+                <p class="section-description">Conservative and aggressive revenue targets based on service mix and conversion rates.</p>
+            </div>
+
+            <div class="glass-card fade-in">
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Revenue Stream</th>
+                                <th>Target Clients</th>
+                                <th>Conservative</th>
+                                <th>Aggressive</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="table-highlight">Talking Head Editing</td>
+                                <td>10–20 clients</td>
+                                <td>₦500,000</td>
+                                <td>₦1,500,000</td>
+                            </tr>
+                            <tr>
+                                <td class="table-highlight">Podcast Editing</td>
+                                <td>5–10 clients</td>
+                                <td>₦500,000</td>
+                                <td>₦1,000,000</td>
+                            </tr>
+                            <tr>
+                                <td class="table-highlight">Talking Head Production</td>
+                                <td>2–3 clients</td>
+                                <td>₦300,000</td>
+                                <td>₦700,000</td>
+                            </tr>
+                            <tr>
+                                <td class="table-highlight">Commercial Production</td>
+                                <td>1 client</td>
+                                <td>₦400,000</td>
+                                <td>₦800,000</td>
+                            </tr>
+                            <tr style="background: rgba(255,255,255,0.03);">
+                                <td class="table-highlight" style="font-weight: 600;">TOTAL</td>
+                                <td style="font-weight: 600;">18–27 clients</td>
+                                <td style="font-weight: 600;">₦1,700,000</td>
+                                <td style="font-weight: 600;">₦4,000,000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="roi-card fade-in">
+                <div class="roi-label">Return on Investment</div>
+                <div class="roi-value">183%–567%</div>
+                <div class="roi-range">Based on ₦600,000 total investment</div>
+            </div>
+
+            <div class="grid-3 fade-in">
+                <div class="metric-card">
+                    <div class="metric-value">₦600K</div>
+                    <div class="metric-label">Investment</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">₦1.1M+</div>
+                    <div class="metric-label">Min Net Profit</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">₦3.4M</div>
+                    <div class="metric-label">Max Net Profit</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEAMLESS Series -->
+        <section class="section" id="seamless">
+            <div class="section-header fade-in">
+                <div class="section-number">04</div>
+                <h2 class="section-title">The SEAMLESS Series</h2>
+                <p class="section-description">A recurring series of 90-second cinematic short films exploring how everyday technology makes modern life effortless.</p>
+            </div>
+
+            <div class="glass-card fade-in">
+                <div class="glass-card-header">
+                    <h3 class="glass-card-title">Episode 1: "His & Hers"</h3>
+                    <span class="glass-card-badge">Pilot</span>
+                </div>
+                <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.8; margin-bottom: 24px;">
+                    A tech-obsessed fiancé overcomplicates his morning with sophisticated tools while his fiancée navigates hers effortlessly using simple, accessible tech. Both arrive at the same place at the same time.
+                </p>
+                
+                <div style="font-size: 12px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Featured Tech (Organic Integration)</div>
+                
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                    <span style="padding: 8px 16px; background: rgba(255,255,255,0.05); border-radius: 100px; font-size: 13px;">Samsung Devices</span>
+                    <span style="padding: 8px 16px; background: rgba(255,255,255,0.05); border-radius: 100px; font-size: 13px;">Uber App</span>
+                    <span style="padding: 8px 16px; background: rgba(255,255,255,0.05); border-radius: 100px; font-size: 13px;">Shortlet Apartment</span>
+                    <span style="padding: 8px 16px; background: rgba(255,255,255,0.05); border-radius: 100px; font-size: 13px;">Premium Restaurant</span>
+                </div>
+            </div>
+
+            <div class="grid-2 fade-in" style="margin-top: 24px;">
+                <div class="glass-card">
+                    <h3 class="glass-card-title" style="margin-bottom: 20px;">Why This Works</h3>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <div style="display: flex; gap: 12px;">
+                            <span style="width: 24px; height: 24px; background: rgba(255,255,255,0.1); border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 12px;">1</span>
+                            <div>
+                                <div style="font-size: 14px; font-weight: 500; margin-bottom: 2px;">Self-Renewing Portfolio</div>
+                                <div style="font-size: 13px; color: var(--text-secondary);">Each episode is fresh proof of capability</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 12px;">
+                            <span style="width: 24px; height: 24px; background: rgba(255,255,255,0.1); border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 12px;">2</span>
+                            <div>
+                                <div style="font-size: 14px; font-weight: 500; margin-bottom: 2px;">Brand Partnership Pipeline</div>
+                                <div style="font-size: 13px; color: var(--text-secondary);">Episodes 4+ attract paid placements (₦300K–₦1M)</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 12px;">
+                            <span style="width: 24px; height: 24px; background: rgba(255,255,255,0.1); border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 12px;">3</span>
+                            <div>
+                                <div style="font-size: 14px; font-weight: 500; margin-bottom: 2px;">Content Marketing</div>
+                                <div style="font-size: 13px; color: var(--text-secondary);">People share good stories; organic reach compounds</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 12px;">
+                            <span style="width: 24px; height: 24px; background: rgba(255,255,255,0.1); border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 12px;">4</span>
+                            <div>
+                                <div style="font-size: 14px; font-weight: 500; margin-bottom: 2px;">Market Positioning</div>
+                                <div style="font-size: 13px; color: var(--text-secondary);">Elevates us from "editor" to "creative studio"</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <h3 class="glass-card-title" style="margin-bottom: 20px;">Content Multiplication</h3>
+                    <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 20px;">One shoot produces 15–20 pieces of content:</p>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                            <span style="color: var(--text-secondary);">Hero Film (90s)</span>
+                            <span>16:9 + 9:16</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                            <span style="color: var(--text-secondary);">Cutdowns</span>
+                            <span>60s, 30s, 15s</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                            <span style="color: var(--text-secondary);">BTS Reels</span>
+                            <span>2–3 pieces</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                            <span style="color: var(--text-secondary);">BTS Photos</span>
+                            <span>5–10 images</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                            <span style="color: var(--text-secondary);">Case Study</span>
+                            <span>Written + Visual</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Deliverables -->
+        <section class="section" id="deliverables">
+            <div class="section-header fade-in">
+                <div class="section-number">05</div>
+                <h2 class="section-title">Production Deliverables</h2>
+                <p class="section-description">Complete list of assets produced from the short film shoot.</p>
+            </div>
+
+            <div class="glass-card fade-in">
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Deliverable</th>
+                                <th>Format</th>
+                                <th>Use Case</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td class="table-highlight">Hero Film — 90s version</td>
+                                <td>16:9, 4K</td>
+                                <td>YouTube, website, pitch</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td class="table-highlight">Hero Film — Vertical</td>
+                                <td>9:16, 4K</td>
+                                <td>Instagram Reels, TikTok</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td class="table-highlight">60-second cutdown</td>
+                                <td>16:9 & 9:16</td>
+                                <td>Paid ads, social</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td class="table-highlight">30-second cutdown</td>
+                                <td>16:9 & 9:16</td>
+                                <td>Paid ads, Twitter</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td class="table-highlight">15-second teaser</td>
+                                <td>9:16</td>
+                                <td>Stories, reels, ads</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td class="table-highlight">BTS Photo Set</td>
+                                <td>High-res JPG</td>
+                                <td>Social, case study</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td class="table-highlight">BTS Reel #1</td>
+                                <td>9:16, 30s</td>
+                                <td>Instagram, TikTok</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td class="table-highlight">BTS Reel #2</td>
+                                <td>9:16, 30s</td>
+                                <td>Educational content</td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td class="table-highlight">Written Case Study</td>
+                                <td>PDF/Blog</td>
+                                <td>LinkedIn, website</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="glass-card fade-in" style="margin-top: 24px;">
+                <div class="glass-card-header">
+                    <h3 class="glass-card-title">Technical Specifications</h3>
+                </div>
+                <div class="grid-2" style="gap: 16px;">
+                    <div style="padding: 16px; background: rgba(255,255,255,0.02); border-radius: 12px;">
+                        <div style="font-size: 11px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">Camera + Lenses</div>
+                        <div style="font-size: 14px; color: var(--text-secondary);">In-house (owned) — ₦0</div>
+                    </div>
+                    <div style="padding: 16px; background: rgba(255,255,255,0.02); border-radius: 12px;">
+                        <div style="font-size: 11px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">Lighting</div>
+                        <div style="font-size: 14px; color: var(--text-secondary);">In-house LED panels — ₦0</div>
+                    </div>
+                    <div style="padding: 16px; background: rgba(255,255,255,0.02); border-radius: 12px;">
+                        <div style="font-size: 11px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">Sound</div>
+                        <div style="font-size: 14px; color: var(--text-secondary);">In-house lavs + recorder — ₦0</div>
+                    </div>
+                    <div style="padding: 16px; background: rgba(255,255,255,0.02); border-radius: 12px;">
+                        <div style="font-size: 11px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">Post-Production</div>
+                        <div style="font-size: 14px; color: var(--text-secondary);">In-house team — ₦0</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Volunteer Strategy -->
+        <section class="section" id="volunteers">
+            <div class="section-header fade-in">
+                <div class="section-number">06</div>
+                <h2 class="section-title">Volunteer Strategy</h2>
+                <p class="section-description">Leveraging volunteer labor to maximize production value while minimizing costs.</p>
+            </div>
+
+            <div class="glass-card fade-in">
+                <div class="glass-card-header">
+                    <h3 class="glass-card-title">What Volunteers Get</h3>
+                </div>
+                <div class="volunteer-benefits">
+                    <div class="volunteer-benefit">
+                        <div class="volunteer-benefit-icon">🎬</div>
+                        <span>Hands-on set experience</span>
+                    </div>
+                    <div class="volunteer-benefit">
+                        <div class="volunteer-benefit-icon">📸</div>
+                        <span>Portfolio content</span>
+                    </div>
+                    <div class="volunteer-benefit">
+                        <div class="volunteer-benefit-icon">✨</div>
+                        <span>Named production credit</span>
+                    </div>
+                    <div class="volunteer-benefit">
+                        <div class="volunteer-benefit-icon">🍽️</div>
+                        <span>Meals on both shoot days</span>
+                    </div>
+                    <div class="volunteer-benefit">
+                        <div class="volunteer-benefit-icon">📜</div>
+                        <span>Intern certificate</span>
+                    </div>
+                    <div class="volunteer-benefit">
+                        <div class="volunteer-benefit-icon">💼</div>
+                        <span>Future paid role consideration</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card fade-in" style="margin-top: 24px;">
+                <div class="glass-card-header">
+                    <h3 class="glass-card-title">Volunteer Roles Needed</h3>
+                    <span class="glass-card-badge">7–10 People</span>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Role</th>
+                                <th>Number</th>
+                                <th>Responsibilities</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="table-highlight">Production Assistant</td>
+                                <td>2–3</td>
+                                <td>Props, continuity, errands, talent support</td>
+                            </tr>
+                            <tr>
+                                <td class="table-highlight">Lighting Assistant</td>
+                                <td>1</td>
+                                <td>Assist gaffer with setup and adjustments</td>
+                            </tr>
+                            <tr>
+                                <td class="table-highlight">Sound Assistant</td>
+                                <td>1</td>
+                                <td>Boom operation, cable management</td>
+                            </tr>
+                            <tr>
+                                <td class="table-highlight">Set Photographer</td>
+                                <td>1</td>
+                                <td>BTS stills</td>
+                            </tr>
+                            <tr>
+                                <td class="table-highlight">Extras</td>
+                                <td>2–3</td>
+                                <td>Background in restaurant scene</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Marketing Strategy -->
+        <section class="section" id="marketing">
+            <div class="section-header fade-in">
+                <div class="section-number">07</div>
+                <h2 class="section-title">Marketing & Distribution</h2>
+                <p class="section-description">Focused Instagram-first strategy with organic amplification across all platforms.</p>
+            </div>
+
+            <div class="grid-2 fade-in">
+                <div class="glass-card">
+                    <div class="glass-card-header">
+                        <h3 class="glass-card-title">Paid Media</h3>
+                        <span class="glass-card-badge">₦200,000</span>
+                    </div>
+                    <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 20px;">Concentrated on Instagram for maximum efficiency.</p>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div class="stream-package">
+                            <div>
+                                <div style="font-size: 13px; font-weight: 500;">Film Launch — Awareness</div>
+                                <div style="font-size: 12px; color: var(--text-tertiary);">Reels Ad (60s) • 14 days</div>
+                            </div>
+                            <span class="stream-package-price">₦120,000</span>
+                        </div>
+                        <div class="stream-package">
+                            <div>
+                                <div style="font-size: 13px; font-weight: 500;">Service Promo — Conversions</div>
+                                <div style="font-size: 12px; color: var(--text-tertiary);">Carousel Ad • 14 days</div>
+                            </div>
+                            <span class="stream-package-price">₦80,000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <div class="glass-card-header">
+                        <h3 class="glass-card-title">Expected Results</h3>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 8px;">
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                                <span style="font-size: 13px; color: var(--text-secondary);">Impressions</span>
+                                <span style="font-size: 13px; font-weight: 500;">150K–300K</span>
+                            </div>
+                            <div style="height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px;">
+                                <div style="height: 100%; width: 75%; background: rgba(255,255,255,0.6); border-radius: 2px;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                                <span style="font-size: 13px; color: var(--text-secondary);">Video Views</span>
+                                <span style="font-size: 13px; font-weight: 500;">50K–100K</span>
+                            </div>
+                            <div style="height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px;">
+                                <div style="height: 100%; width: 60%; background: rgba(255,255,255,0.6); border-radius: 2px;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                                <span style="font-size: 13px; color: var(--text-secondary);">Link Clicks</span>
+                                <span style="font-size: 13px; font-weight: 500;">1.5K–3K</span>
+                            </div>
+                            <div style="height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px;">
+                                <div style="height: 100%; width: 40%; background: rgba(255,255,255,0.6); border-radius: 2px;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                                <span style="font-size: 13px; color: var(--text-secondary);">DM Inquiries</span>
+                                <span style="font-size: 13px; font-weight: 500;">20–50</span>
+                            </div>
+                            <div style="height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px;">
+                                <div style="height: 100%; width: 25%; background: rgba(255,255,255,0.6); border-radius: 2px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card fade-in" style="margin-top: 24px;">
+                <div class="glass-card-header">
+                    <h3 class="glass-card-title">Launch Day Schedule</h3>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Platform</th>
+                                <th>Content</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>8:00 AM</td>
+                                <td class="table-highlight">Instagram Feed</td>
+                                <td>Full 90s film (Reel) + launch caption</td>
+                            </tr>
+                            <tr>
+                                <td>8:30 AM</td>
+                                <td class="table-highlight">Instagram Stories</td>
+                                <td>15s teaser + swipe to Reel</td>
+                            </tr>
+                            <tr>
+                                <td>9:00 AM</td>
+                                <td class="table-highlight">LinkedIn</td>
+                                <td>Full film + COO case study post</td>
+                            </tr>
+                            <tr>
+                                <td>10:00 AM</td>
+                                <td class="table-highlight">TikTok</td>
+                                <td>60s cutdown</td>
+                            </tr>
+                            <tr>
+                                <td>11:00 AM</td>
+                                <td class="table-highlight">Instagram Ads</td>
+                                <td>Paid campaigns activated</td>
+                            </tr>
+                            <tr>
+                                <td>12:00 PM</td>
+                                <td class="table-highlight">YouTube</td>
+                                <td>90s film premiere</td>
+                            </tr>
+                            <tr>
+                                <td>2:00 PM</td>
+                                <td class="table-highlight">Twitter/X</td>
+                                <td>Production thread + 30s clip</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Budget Breakdown -->
+        <section class="section" id="budget">
+            <div class="section-header fade-in">
+                <div class="section-number">08</div>
+                <h2 class="section-title">Budget Breakdown</h2>
+                <p class="section-description">Complete cost allocation for the ₦600,000 campaign investment.</p>
+            </div>
+
+            <div class="glass-card fade-in">
+                <div class="glass-card-header">
+                    <h3 class="glass-card-title">Total Investment</h3>
+                    <span class="glass-card-badge">₦600,000</span>
+                </div>
+                
+                <div class="budget-visual">
+                    <div class="budget-bar production" style="width: 66.7%;"></div>
+                    <div class="budget-bar marketing" style="width: 33.3%;"></div>
+                </div>
+                
+                <div class="budget-legend">
+                    <div class="budget-legend-item">
+                        <div class="budget-legend-dot production"></div>
+                        <span>Production — ₦400,000 (66.7%)</span>
+                    </div>
+                    <div class="budget-legend-item">
+                        <div class="budget-legend-dot marketing"></div>
+                        <span>Marketing — ₦200,000 (33.3%)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2 fade-in" style="margin-top: 24px;">
+                <div class="glass-card">
+                    <div class="glass-card-header">
+                        <h3 class="glass-card-title">Production Budget</h3>
+                        <span class="glass-card-badge">₦400,000</span>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="table-highlight">BTS Cinematographer</td>
+                                    <td style="text-align: right;">₦80,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-highlight">Lead Talent (Male)</td>
+                                    <td style="text-align: right;">₦50,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-highlight">Lead Talent (Female)</td>
+                                    <td style="text-align: right;">₦50,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-highlight">Shortlet Apartment</td>
+                                    <td style="text-align: right;">₦50,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-highlight">Restaurant Location</td>
+                                    <td style="text-align: right;">₦30,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-highlight">Transportation</td>
+                                    <td style="text-align: right;">₦40,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-highlight">Meals & Catering</td>
+                                    <td style="text-align: right;">₦50,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-highlight">Props & Wardrobe</td>
+                                    <td style="text-align: right;">₦20,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-highlight">Music License</td>
+                                    <td style="text-align: right;">₦20,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-highlight">Miscellaneous</td>
+                                    <td style="text-align: right;">₦10,000</td>
+                                </tr>
+                                <tr style="background: rgba(255,255,255,0.03);">
+                                    <td style="font-weight: 600;">TOTAL</td>
+                                    <td style="text-align: right; font-weight: 600;">₦400,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <div class="glass-card-header">
+                        <h3 class="glass-card-title">Marketing Budget</h3>
+                        <span class="glass-card-badge">₦200,000</span>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="table-highlight">Instagram Ads — Awareness</td>
+                                    <td style="text-align: right;">₦120,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-highlight">Instagram Ads — Conversions</td>
+                                    <td style="text-align: right;">₦80,000</td>
+                                </tr>
+                                <tr style="background: rgba(255,255,255,0.03);">
+                                    <td style="font-weight: 600;">TOTAL</td>
+                                    <td style="text-align: right; font-weight: 600;">₦200,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div style="margin-top: 24px; padding: 20px; background: rgba(255,255,255,0.02); border-radius: 12px;">
+                        <div style="font-size: 12px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Zero Cost (In-House)</div>
+                        <div style="font-size: 14px; color: var(--text-secondary); line-height: 1.8;">
+                            Social media management, copywriting, graphic design, community engagement, direct outreach — all handled internally.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card fade-in" style="margin-top: 24px;">
+                <div class="glass-card-header">
+                    <h3 class="glass-card-title">Budget Release Schedule</h3>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Phase</th>
+                                <th>Timing</th>
+                                <th>Purpose</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="table-highlight">Phase 1</td>
+                                <td>Week 1</td>
+                                <td>Talent deposits, location bookings, props</td>
+                                <td>₦200,000</td>
+                            </tr>
+                            <tr>
+                                <td class="table-highlight">Phase 2</td>
+                                <td>Week 2</td>
+                                <td>Meals, transport, BTS DP payment</td>
+                                <td>₦150,000</td>
+                            </tr>
+                            <tr>
+                                <td class="table-highlight">Phase 3</td>
+                                <td>Week 3</td>
+                                <td>Music license, outstanding payments</td>
+                                <td>₦50,000</td>
+                            </tr>
+                            <tr>
+                                <td class="table-highlight">Phase 4</td>
+                                <td>Week 3 (Launch)</td>
+                                <td>Instagram ad spend</td>
+                                <td>₦200,000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Weekly Calendar -->
+        <section class="section" id="calendar">
+            <div class="section-header fade-in">
+                <div class="section-number">09</div>
+                <h2 class="section-title">Execution Calendar</h2>
+                <p class="section-description">Week-by-week breakdown of activities and milestones.</p>
+            </div>
+
+            <div class="timeline fade-in">
+                <div class="timeline-item active">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-week">Week 1 • March 1–7</div>
+                    <div class="timeline-title">Pre-Production</div>
+                    <div class="timeline-tasks">
+                        <div class="timeline-task">Finalize script selection</div>
+                        <div class="timeline-task">Post volunteer/intern call</div>
+                        <div class="timeline-task">Negotiate locations (shortlet, restaurant)</div>
+                        <div class="timeline-task">Casting call for lead talent</div>
+                        <div class="timeline-task">Lock crew and volunteers</div>
+                        <div class="timeline-task">Props and wardrobe sourcing</div>
+                        <div class="timeline-task">Equipment check and prep</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-week">Week 2 • March 8–14</div>
+                    <div class="timeline-title">Production + Initial Post</div>
+                    <div class="timeline-tasks">
+                        <div class="timeline-task">SHOOT DAY 1: Apartment + restaurant scenes</div>
+                        <div class="timeline-task">SHOOT DAY 2: Exterior + Uber scenes</div>
+                        <div class="timeline-task">Daily BTS stories during shoot</div>
+                        <div class="timeline-task">Footage backup and organization</div>
+                        <div class="timeline-task">Begin rough assembly edit</div>
+                        <div class="timeline-task">Sound design and color grading</div>
+                        <div class="timeline-task">Post BTS Reel #1</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-week">Week 3 • March 15–21</div>
+                    <div class="timeline-title">Post-Production & Launch</div>
+                    <div class="timeline-tasks">
+                        <div class="timeline-task">Final cut and QC check</div>
+                        <div class="timeline-task">Export all deliverable versions</div>
+                        <div class="timeline-task">Chairman review and approval</div>
+                        <div class="timeline-task">LAUNCH DAY: Full distribution</div>
+                        <div class="timeline-task">Paid ads go live</div>
+                        <div class="timeline-task">Begin brand outreach (15 DMs, 5 emails)</div>
+                        <div class="timeline-task">Post case study carousel</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-week">Week 4 • March 22–31</div>
+                    <div class="timeline-title">Monetize & Compound</div>
+                    <div class="timeline-tasks">
+                        <div class="timeline-task">Follow up on all leads</div>
+                        <div class="timeline-task">Send proposals to hot leads within 24 hours</div>
+                        <div class="timeline-task">Pitch 5 additional brands directly</div>
+                        <div class="timeline-task">Post "Episode 2 Coming Soon" teaser</div>
+                        <div class="timeline-task">Offer "March Special" — 15% off</div>
+                        <div class="timeline-task">Close pending deals</div>
+                        <div class="timeline-task">Compile March performance report</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Success Metrics -->
+        <section class="section" id="metrics">
+            <div class="section-header fade-in">
+                <div class="section-number">10</div>
+                <h2 class="section-title">Success Metrics</h2>
+                <p class="section-description">Key performance indicators to measure campaign effectiveness.</p>
+            </div>
+
+            <div class="grid-4 fade-in">
+                <div class="metric-card">
+                    <div class="metric-value">80K–200K</div>
+                    <div class="metric-label">Total Views</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">5–10%</div>
+                    <div class="metric-label">Engagement Rate</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">20–50</div>
+                    <div class="metric-label">DM Inquiries</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">25–40%</div>
+                    <div class="metric-label">Conversion Rate</div>
+                </div>
+            </div>
+
+            <div class="glass-card fade-in" style="margin-top: 24px;">
+                <div class="glass-card-header">
+                    <h3 class="glass-card-title">Success Criteria</h3>
+                </div>
+                <div class="grid-3" style="gap: 16px;">
+                    <div style="padding: 20px; background: rgba(255,255,255,0.02); border-radius: 12px; border: 1px solid rgba(255,255,255,0.04);">
+                        <div style="font-size: 12px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Minimum</div>
+                        <div style="font-size: 14px; color: var(--text-secondary); line-height: 1.7;">
+                            Film launched<br>
+                            ₦1.5M revenue<br>
+                            50K+ views<br>
+                            10+ leads for April
+                        </div>
+                    </div>
+                    <div style="padding: 20px; background: rgba(255,255,255,0.04); border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);">
+                        <div style="font-size: 12px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Target</div>
+                        <div style="font-size: 14px; color: var(--text-secondary); line-height: 1.7;">
+                            100K+ views<br>
+                            ₦2.5M+ revenue<br>
+                            1 commercial deal<br>
+                            20+ leads for April
+                        </div>
+                    </div>
+                    <div style="padding: 20px; background: rgba(255,255,255,0.06); border-radius: 12px; border: 1px solid rgba(255,255,255,0.12);">
+                        <div style="font-size: 12px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Exceptional</div>
+                        <div style="font-size: 14px; color: var(--text-secondary); line-height: 1.7;">
+                            200K+ views<br>
+                            ₦3.5M+ revenue<br>
+                            Brand engagement<br>
+                            Episode 2 sponsor interest
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Risk Mitigation -->
+        <section class="section" id="risks">
+            <div class="section-header fade-in">
+                <div class="section-number">11</div>
+                <h2 class="section-title">Risk Mitigation</h2>
+                <p class="section-description">Identified risks and strategies to address them.</p>
+            </div>
+
+            <div class="fade-in">
+                <div class="risk-card" data-accordion>
+                    <div class="risk-header">
+                        <div class="risk-title">Volunteer No-Shows</div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div class="risk-badges">
+                                <span class="risk-badge probability">Medium Prob</span>
+                                <span class="risk-badge impact">Medium Impact</span>
+                            </div>
+                            <div class="accordion-toggle">+</div>
+                        </div>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="risk-mitigation">
+                            Confirm attendance 48 hours AND 24 hours before shoot. Recruit 10 volunteers knowing 2–3 may drop. Have in-house team ready to cover critical roles. Core production (camera, sound, lighting) is handled internally regardless.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="risk-card" data-accordion>
+                    <div class="risk-header">
+                        <div class="risk-title">Location Falls Through</div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div class="risk-badges">
+                                <span class="risk-badge probability">Low-Med Prob</span>
+                                <span class="risk-badge impact">High Impact</span>
+                            </div>
+                            <div class="accordion-toggle">+</div>
+                        </div>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="risk-mitigation">
+                            Confirm locations in writing (email or WhatsApp) with clear date/time. Have 1 backup shortlet and 1 backup restaurant identified. Pay deposit or sign simple agreement where possible. Scout backup public locations that could work in emergency.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="risk-card" data-accordion>
+                    <div class="risk-header">
+                        <div class="risk-title">Talent Issues</div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div class="risk-badges">
+                                <span class="risk-badge probability">Low Prob</span>
+                                <span class="risk-badge impact">High Impact</span>
+                            </div>
+                            <div class="accordion-toggle">+</div>
+                        </div>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="risk-mitigation">
+                            Lock talent with deposit payment. Confirm availability multiple times. Have contact info for 1–2 backup actors who auditioned. Keep Day 1 scenes flexible enough to reorder if needed.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="risk-card" data-accordion>
+                    <div class="risk-header">
+                        <div class="risk-title">Film Underperforms</div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div class="risk-badges">
+                                <span class="risk-badge probability">Medium Prob</span>
+                                <span class="risk-badge impact">Medium Impact</span>
+                            </div>
+                            <div class="accordion-toggle">+</div>
+                        </div>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="risk-mitigation">
+                            Paid ads guarantee baseline reach regardless of organic performance. Direct outreach does not depend on views. Film still serves as portfolio piece for all future pitches. Learn and improve for Episode 2.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="risk-card" data-accordion>
+                    <div class="risk-header">
+                        <div class="risk-title">No Commercial Production Leads</div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div class="risk-badges">
+                                <span class="risk-badge probability">Medium Prob</span>
+                                <span class="risk-badge impact">Low-Med Impact</span>
+                            </div>
+                            <div class="accordion-toggle">+</div>
+                        </div>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="risk-mitigation">
+                            Editing and podcast services continue generating revenue regardless. Film elevates all pitches even if it doesn't directly convert in March. Episode 2 compounds the effect. The series builds credibility over time.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Next Steps -->
+        <section class="section" id="next-steps">
+            <div class="section-header fade-in">
+                <div class="section-number">12</div>
+                <h2 class="section-title">Next Steps</h2>
+                <p class="section-description">Immediate actions required to execute this plan.</p>
+            </div>
+
+            <div class="glass-card fade-in">
+                <div class="glass-card-header">
+                    <h3 class="glass-card-title">Immediate Actions</h3>
+                    <span class="glass-card-badge">This Week</span>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Action</th>
+                                <th>Owner</th>
+                                <th>Deadline</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="table-highlight">Approve plan and ₦600K budget</td>
+                                <td>Chairman</td>
+                                <td>Day 1</td>
+                            </tr>
+                            <tr>
+                                <td class="table-highlight">Release initial funds (₦200K)</td>
+                                <td>Finance / Chairman</td>
+                                <td>Day 2</td>
+                            </tr>
+                            <tr>
+                                <td class="table-highlight">Post volunteer announcement</td>
+                                <td>Social Media</td>
+                                <td>Day 2</td>
+                            </tr>
+                            <tr>
+                                <td class="table-highlight">Begin location outreach</td>
+                                <td>Production Lead</td>
+                                <td>Day 2</td>
+                            </tr>
+                            <tr>
+                                <td class="table-highlight">Finalize script selection</td>
+                                <td>Creative Lead + COO</td>
+                                <td>Day 3</td>
+                            </tr>
+                            <tr>
+                                <td class="table-highlight">Casting call for talent</td>
+                                <td>Production Lead</td>
+                                <td>Day 3–4</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section" id="approval">
+            <div class="fade-in">
+                <h2 class="cta-title">Ready to Execute</h2>
+                <p class="cta-subtitle">This plan positions Wacky Pixels for sustainable growth through demonstrated capability and strategic content marketing.</p>
+                
+                <div style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: 40px; display: inline-block; margin-bottom: 40px; backdrop-filter: blur(40px);">
+                    <div style="display: flex; gap: 60px; flex-wrap: wrap; justify-content: center;">
+                        <div>
+                            <div style="font-size: 14px; color: var(--text-tertiary); margin-bottom: 8px;">Total Investment</div>
+                            <div style="font-size: 36px; font-weight: 600; letter-spacing: -1px;">₦600,000</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 14px; color: var(--text-tertiary); margin-bottom: 8px;">Expected Return</div>
+                            <div style="font-size: 36px; font-weight: 600; letter-spacing: -1px;">₦1.7M–₦4M</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 14px; color: var(--text-tertiary); margin-bottom: 8px;">ROI Range</div>
+                            <div style="font-size: 36px; font-weight: 600; letter-spacing: -1px;">183%–567%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cta-buttons">
+                    <button class="cta-button primary" onclick="window.print()">Approve & Print</button>
+                    <a href="#hero" class="cta-button secondary">Review Again</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-text">Wacky Pixels — March 2025 Strategic Plan • Confidential</div>
+            <div class="footer-signature">Prepared by Chief Operations Officer</div>
+        </footer>
+    </main>
+
+    <script>
+        // Mobile Navigation Toggle
+        const navToggle = document.getElementById('navToggle');
+        const nav = document.getElementById('nav');
+
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            nav.classList.toggle('open');
+        });
+
+        // Close nav when clicking a link on mobile
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 968) {
+                    navToggle.classList.remove('active');
+                    nav.classList.remove('open');
+                }
+            });
+        });
+
+        // Scroll Progress Bar
+        const scrollProgress = document.getElementById('scrollProgress');
+
+        window.addEventListener('scroll', () => {
+            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (window.scrollY / windowHeight) * 100;
+            scrollProgress.style.width = scrolled + '%';
+        });
+
+        // Active Navigation Link
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Fade In Animation on Scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        const fadeInObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        fadeElements.forEach(element => {
+            fadeInObserver.observe(element);
+        });
+
+        // Accordion for Risk Cards
+        document.querySelectorAll('[data-accordion]').forEach(accordion => {
+            const header = accordion.querySelector('.risk-header');
+            const content = accordion.querySelector('.accordion-content');
+            const toggle = accordion.querySelector('.accordion-toggle');
+
+            header.addEventListener('click', () => {
+                content.classList.toggle('open');
+                toggle.classList.toggle('open');
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
